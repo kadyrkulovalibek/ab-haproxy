@@ -1,0 +1,15 @@
+---
+- name: Configure Monit for HAProxy
+  template:
+    src: haproxy_monit.j2
+    dest: /etc/monit/conf.d/haproxy
+  notify: Restart Monit service
+
+- name: Generate unique ID and create INI file
+  template:
+    src: unique_id.ini.j2
+    dest: ./unique_id.ini
+
+- name: Debug unique ID
+  debug:
+    var: inventory_hostname

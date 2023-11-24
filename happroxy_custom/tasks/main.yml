@@ -1,0 +1,13 @@
+---
+- name: Install HAProxy package
+  apt:
+    name: haproxy
+    state: present
+
+- name: Configure HAProxy
+  template:
+    src: haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+  notify: Restart HAProxy service
+
+- import_tasks: monit.yml
